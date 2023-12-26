@@ -1,9 +1,12 @@
+import { useState } from "react";
 import "./App.css";
 import backCard from "./assets/bg-card-back.png";
 import frontCard from "./assets/bg-card-front.png";
 import cardLogo from "./assets/card-logo.svg";
 
 function App() {
+  const [holderName, setHolderName] = useState<string>("");
+  const [cardNumber, setCardNumber] = useState<string>("");
   return (
     <>
       <div className="cards-container">
