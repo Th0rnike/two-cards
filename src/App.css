@@ -1,5 +1,5 @@
 .cards-container{
-    height: 100vh;
+    height: 41vh;
     background-image: url("./assets/bg-main-mobile.png");
     background-repeat: no-repeat;
     background-size: 100% 24rem;
@@ -87,4 +87,28 @@
     font-weight: 500;
     letter-spacing: 1.286px;
     text-transform: uppercase;
+}
+
+/* input div */
+
+.input-div{
+    margin: 4.8rem 2.4rem 0 2.4rem;
+}
+
+.input-div label{
+    display: block;
+}
+
+.expiration-dates{
+    display: flex;
+}
+
+.confirm{
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--Deep-Violet);
+    color: #FFF;
+    padding: 1.5rem 0;
+    margin-top: 2.8rem;
 }

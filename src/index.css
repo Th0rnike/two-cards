@@ -1,6 +1,7 @@
 :root{
     font-size: 10px;
     --White: #FFF;
+    --Deep-Violet: #21092F;
 }
 
 *{
@@ -8,4 +9,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Space Grotesk', sans-serif;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
