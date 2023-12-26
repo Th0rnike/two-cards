@@ -1,6 +1,7 @@
 import "./App.css";
 import backCard from "./assets/bg-card-back.png";
 import frontCard from "./assets/bg-card-front.png";
+import cardLogo from "./assets/card-logo.svg";
 
 function App() {
   return (
@@ -11,7 +12,14 @@ function App() {
       </div>
       <div className="front-card">
         <img src={frontCard} alt="" />
-        <span>0000 0000 0000 0000</span>
+        <div className="card-details">
+          <img id="logo" src={cardLogo} alt="" />
+          <span>0000 0000 0000 0000</span>
+          <div className="info">
+            <span>jane appleseed</span>
+            <span>00/00</span>
+          </div>
+        </div>
       </div>
     </div>
   );
