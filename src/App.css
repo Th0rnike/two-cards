@@ -51,6 +51,7 @@
     position: absolute;
     top: 1.8rem;
     left: 1.9rem;
+    width: 90%; /* added because cvc number moved left depending the width of card number*/
 }
 
 #logo{
@@ -111,4 +112,8 @@
     color: #FFF;
     padding: 1.5rem 0;
     margin-top: 2.8rem;
+}
+
+.confirm:active{
+    background-color: green;
 }

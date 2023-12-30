@@ -7,6 +7,32 @@ import cardLogo from "./assets/card-logo.svg";
 function App() {
   const [holderName, setHolderName] = useState<string>("");
   const [cardNumber, setCardNumber] = useState<string>("");
+  const [showError, setShowError] = useState<boolean>(false);
+
+  const updateName = (e: React.FormEvent<HTMLInputElement>) => {
+    const val = e.currentTarget.value;
+    setHolderName(val);
+  };
+
+  const updateCardNumber = (e: React.FormEvent<HTMLInputElement>) => {
+    const val = e.currentTarget.value;
+    setCardNumber(val);
+  };
+
+  const checkName = (input: string): boolean => {
+    // Regular expression to match alphabets and spaces only
+    const regex = /^[a-zA-Z\s]*$/;
+    return regex.test(input);
+  };
+
+  const checkFields = () => {
+    if (checkName(holderName)) {
+      setShowError(false);
+    } else {
+      setShowError(true);
+    }
+  };
+
   return (
     <>
       <div className="cards-container">
@@ -18,9 +44,11 @@ function App() {
           <img src={frontCard} alt="front of the card" />
           <div className="card-details">
             <img id="logo" src={cardLogo} alt="logo of the card" />
-            <span>0000 0000 0000 0000</span>
+            <span>
+              {cardNumber === "" ? "0000 0000 0000 0000" : cardNumber}
+            </span>
             <div className="info">
-              <span>jane appleseed</span>
+              <span>{holderName === "" ? "Jane Appleseed" : holderName}</span>
               <span>00/00</span>
             </div>
           </div>
@@ -30,11 +58,13 @@ function App() {
         <form>
           <div>
             <label htmlFor="holder">Cardholder Name</label>
-            <input id="holder" type="text" />
+            <input onChange={updateName} id="holder" type="text" />
+            <p>{showError ? "Username not valid" : ""}</p>
           </div>
           <div>
             <label htmlFor="cardNumber">Card Number</label>
-            <input id="cardNumber" type="text" />
+            <input onChange={updateCardNumber} id="cardNumber" type="text" />
+            <p>{showError === true ? "Field can not be empty" : ""}</p>
           </div>
           <div className="expiration-dates">
             <div>
@@ -48,7 +78,9 @@ function App() {
             </div>
           </div>
         </form>
-        <button className="confirm">confirm</button>
+        <button onClick={checkFields} className="confirm">
+          confirm
+        </button>
       </div>
     </>
   );
