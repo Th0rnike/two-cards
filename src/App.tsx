@@ -26,8 +26,9 @@ function App() {
   };
 
   const updateCardNumber = (e: React.FormEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
+    let { value } = e.currentTarget;
     const formattedValue = formattedNumber(value);
+    value = value.replace(/(.{4})/g, "$1 ");
     setCardNumber(formattedValue);
   };
 
@@ -44,17 +45,26 @@ function App() {
     let { value } = e.currentTarget;
     // Allow only numeric characters
     value = value.replace(/\D/g, "");
+    if (parseInt(value) > 12) {
+      value = 12;
+    }
     setMonth(value); // Update state with the current value
   };
 
   const updateYear = (e: React.FormEvent<HTMLInputElement>) => {
-    const val = e.currentTarget.value;
-    setYear(val);
+    let { value } = e.currentTarget;
+    // Allow only numeric characters
+    value = value.replace(/\D/g, "");
+    setYear(value); // Update state with the current value
   };
 
   const updateCvc = (e: React.FormEvent<HTMLInputElement>) => {
-    const val = e.currentTarget.value;
-    setCvc(val);
+    let { value } = e.currentTarget;
+    value = value.replace(/\D/g, "");
+    if (parseInt(value) > 999) {
+      value = 999;
+    }
+    setCvc(value);
   };
 
   const isNotEmpty = (str: string) => str.trim().length > 0;
@@ -75,7 +85,7 @@ function App() {
   };
 
   const isNotCharacter = (cardNumber: string) => {
-    const regex = /^[0-9]*$/;
+    const regex = /^[0-9 ]*$/;
     if (!regex.test(cardNumber)) {
       setError((prevErrors) => ({
         ...prevErrors,
@@ -150,9 +160,10 @@ function App() {
           <div>
             <label htmlFor="cardNumber">Card Number</label>
             <input
+              value={cardNumber}
               placeholder="XXXX XXXX XXXX XXXX"
               onChange={updateCardNumber}
-              maxLength={16}
+              maxLength={19}
               id="cardNumber"
               type="text"
             />
@@ -169,11 +180,24 @@ function App() {
                 type="text"
                 maxLength={2}
               />
-              <input onChange={updateYear} id="yy" type="number" />
+              <input
+                onChange={updateYear}
+                id="yy"
+                type="text"
+                value={year}
+                maxLength={2}
+              />
             </div>
             <div>
               <label htmlFor="cvc">cvc</label>
-              <input onChange={updateCvc} id="cvc" type="number" />
+              <input
+                onChange={updateCvc}
+                id="cvc"
+                type="text"
+                maxLength={3}
+                minLength={3}
+                value={cvc}
+              />
             </div>
           </div>
         </form>
