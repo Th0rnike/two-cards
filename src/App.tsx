@@ -18,6 +18,34 @@ function App() {
     setCardNumber(val);
   };
 
+  const isNotEmpty = (str: string) => str.trim().length > 0;
+
+  const isNotNumber = (holderName: string) => {
+    const regex = /^[A-Za-z ]*$/;
+    if (!regex.test(holderName)) {
+      console.log("arunda iyos nomeri");
+    }
+  };
+
+  const isNotCharacter = (cardNumber: string) => {
+    const regex = /^[0-9]*$/;
+    if (!regex.test(cardNumber)) {
+      console.log("arunda iyos characteri");
+    }
+  };
+
+  const handleClick = () => {
+    if (!isNotEmpty(holderName)) {
+      console.log("useri sheavse");
+    }
+    if (!isNotEmpty(cardNumber)) {
+      console.log("numberi sheavse");
+    }
+
+    isNotNumber(holderName);
+    isNotCharacter(cardNumber);
+  };
+
   return (
     <>
       <div className="cards-container">
@@ -61,7 +89,9 @@ function App() {
             </div>
           </div> */}
         </form>
-        <button className="confirm">confirm</button>
+        <button onClick={handleClick} className="confirm">
+          confirm
+        </button>
       </div>
     </>
   );
