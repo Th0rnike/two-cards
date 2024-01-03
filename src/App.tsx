@@ -14,6 +14,9 @@ const initialErrors = {
 function App() {
   const [holderName, setHolderName] = useState<string>("");
   const [cardNumber, setCardNumber] = useState<string>("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+  const [cvc, setCvc] = useState("");
 
   const [error, setError] = useState(initialErrors);
 
@@ -23,8 +26,35 @@ function App() {
   };
 
   const updateCardNumber = (e: React.FormEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    const formattedValue = formattedNumber(value);
+    setCardNumber(formattedValue);
+  };
+
+  const formattedNumber = (value: string) => {
+    //remove any non numeric values
+    const formattedValue = value.replace(/\D/g, "");
+
+    //add a space after every 4 characters
+    const result = formattedValue.replace(/(.{4})/g, "$1 ");
+    return result;
+  };
+
+  const updateMonth = (e: React.FormEvent<HTMLInputElement>) => {
+    let { value } = e.currentTarget;
+    // Allow only numeric characters
+    value = value.replace(/\D/g, "");
+    setMonth(value); // Update state with the current value
+  };
+
+  const updateYear = (e: React.FormEvent<HTMLInputElement>) => {
     const val = e.currentTarget.value;
-    setCardNumber(val);
+    setYear(val);
+  };
+
+  const updateCvc = (e: React.FormEvent<HTMLInputElement>) => {
+    const val = e.currentTarget.value;
+    setCvc(val);
   };
 
   const isNotEmpty = (str: string) => str.trim().length > 0;
@@ -91,7 +121,7 @@ function App() {
       <div className="cards-container">
         <div className="back-card">
           <img src={backCard} alt="back of the card" />
-          <span>000</span>
+          <span>{cvc || "000"}</span>
         </div>
         <div className="front-card">
           <img src={frontCard} alt="front of the card" />
@@ -102,7 +132,9 @@ function App() {
             </span>
             <div className="info">
               <span>{holderName === "" ? "Jane Appleseed" : holderName}</span>
-              <span>00/00</span>
+              <span>
+                {month || "00"}/{year || "00"}
+              </span>
             </div>
           </div>
         </div>
@@ -117,21 +149,33 @@ function App() {
           </div>
           <div>
             <label htmlFor="cardNumber">Card Number</label>
-            <input onChange={updateCardNumber} id="cardNumber" type="text" />
+            <input
+              placeholder="XXXX XXXX XXXX XXXX"
+              onChange={updateCardNumber}
+              maxLength={16}
+              id="cardNumber"
+              type="text"
+            />
             {error.numberCantBeBlank && <span>{error.numberCantBeBlank}</span>}
             {error.cantBeChar && <span>{error.cantBeChar}</span>}
           </div>
-          {/* <div className="expiration-dates">
+          <div className="expiration-dates">
             <div>
               <label htmlFor="mm">exp. date (mm/yy)</label>
-              <input id="mm" type="number" />
-              <input id="yy" type="number" />
+              <input
+                value={month}
+                onChange={updateMonth}
+                id="mm"
+                type="text"
+                maxLength={2}
+              />
+              <input onChange={updateYear} id="yy" type="number" />
             </div>
             <div>
               <label htmlFor="cvc">cvc</label>
-              <input id="cvc" type="number" />
+              <input onChange={updateCvc} id="cvc" type="number" />
             </div>
-          </div> */}
+          </div>
         </form>
         <button onClick={handleClick} className="confirm">
           confirm
