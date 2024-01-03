@@ -4,9 +4,18 @@ import backCard from "./assets/bg-card-back.png";
 import frontCard from "./assets/bg-card-front.png";
 import cardLogo from "./assets/card-logo.svg";
 
+const initialErrors = {
+  nameCantBeBlank: "",
+  numberCantBeBlank: "",
+  cantBeNumber: "",
+  cantBeChar: "",
+};
+
 function App() {
   const [holderName, setHolderName] = useState<string>("");
   const [cardNumber, setCardNumber] = useState<string>("");
+
+  const [error, setError] = useState(initialErrors);
 
   const updateName = (e: React.FormEvent<HTMLInputElement>) => {
     const val = e.currentTarget.value;
@@ -23,27 +32,58 @@ function App() {
   const isNotNumber = (holderName: string) => {
     const regex = /^[A-Za-z ]*$/;
     if (!regex.test(holderName)) {
-      console.log("arunda iyos nomeri");
+      setError((prevErrors) => ({
+        ...prevErrors,
+        cantBeNumber: "Holder name can't contain numbers",
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        cantBeNumber: "",
+      }));
     }
   };
 
   const isNotCharacter = (cardNumber: string) => {
     const regex = /^[0-9]*$/;
     if (!regex.test(cardNumber)) {
-      console.log("arunda iyos characteri");
+      setError((prevErrors) => ({
+        ...prevErrors,
+        cantBeChar: "Wrong format, numbers only",
+      }));
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        cantBeChar: "",
+      }));
     }
   };
 
   const handleClick = () => {
+    setError(initialErrors); //reset errors to each click
+
+    let isValid = true;
+
     if (!isNotEmpty(holderName)) {
-      console.log("useri sheavse");
+      setError((prevErrors) => ({
+        ...prevErrors,
+        nameCantBeBlank: "holder Can't be blank",
+      }));
+      isValid = false;
     }
     if (!isNotEmpty(cardNumber)) {
-      console.log("numberi sheavse");
+      setError((prevErrs) => ({
+        ...prevErrs,
+        numberCantBeBlank: "Can't be blank",
+      }));
+      isValid = false;
     }
 
     isNotNumber(holderName);
     isNotCharacter(cardNumber);
+
+    console.log(isValid);
+    return isValid;
   };
 
   return (
@@ -72,10 +112,14 @@ function App() {
           <div>
             <label htmlFor="holder">Cardholder Name</label>
             <input onChange={updateName} id="holder" type="text" />
+            {error.nameCantBeBlank && <span>{error.nameCantBeBlank}</span>}
+            {error.cantBeNumber && <span>{error.cantBeNumber}</span>}
           </div>
           <div>
             <label htmlFor="cardNumber">Card Number</label>
             <input onChange={updateCardNumber} id="cardNumber" type="text" />
+            {error.numberCantBeBlank && <span>{error.numberCantBeBlank}</span>}
+            {error.cantBeChar && <span>{error.cantBeChar}</span>}
           </div>
           {/* <div className="expiration-dates">
             <div>
