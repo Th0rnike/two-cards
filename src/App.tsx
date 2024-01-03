@@ -7,6 +7,9 @@ import cardLogo from "./assets/card-logo.svg";
 const initialErrors = {
   nameCantBeBlank: "",
   numberCantBeBlank: "",
+  monthCantBeBlank: "",
+  yearCantBeBlank: "",
+  cvcCantBeBlank: "",
   cantBeNumber: "",
   cantBeChar: "",
 };
@@ -119,6 +122,28 @@ function App() {
       isValid = false;
     }
 
+    if (!isNotEmpty(month)) {
+      setError((prevErrs) => ({
+        ...prevErrs,
+        monthCantBeBlank: "Can't be blank",
+      }));
+      isValid = false;
+    }
+    if (!isNotEmpty(year)) {
+      setError((prevErrs) => ({
+        ...prevErrs,
+        yearCantBeBlank: "Can't be blank",
+      }));
+      isValid = false;
+    }
+    if (!isNotEmpty(cvc)) {
+      setError((prevErrs) => ({
+        ...prevErrs,
+        cvcCantBeBlank: "Can't be blank",
+      }));
+      isValid = false;
+    }
+
     isNotNumber(holderName);
     isNotCharacter(cardNumber);
 
@@ -180,6 +205,7 @@ function App() {
                 type="text"
                 maxLength={2}
               />
+              {error.monthCantBeBlank && <span>{error.monthCantBeBlank}</span>}
               <input
                 onChange={updateYear}
                 id="yy"
@@ -187,6 +213,7 @@ function App() {
                 value={year}
                 maxLength={2}
               />
+              {error.yearCantBeBlank && <span>{error.yearCantBeBlank}</span>}
             </div>
             <div>
               <label htmlFor="cvc">cvc</label>
@@ -199,6 +226,7 @@ function App() {
                 value={cvc}
               />
             </div>
+            {error.cvcCantBeBlank && <span>{error.cvcCantBeBlank}</span>}
           </div>
         </form>
         <button onClick={handleClick} className="confirm">
