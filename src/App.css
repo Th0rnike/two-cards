@@ -96,8 +96,18 @@
     margin: 4.8rem 2.4rem 0 2.4rem;
 }
 
+
+
 .input-div label{
     display: block;
+    font-family: Space Grotesk;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--Deep-Violet);
 }
 
 .expiration-dates{

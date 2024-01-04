@@ -7,11 +7,11 @@ import cardLogo from "./assets/card-logo.svg";
 const initialErrors = {
   nameCantBeBlank: "",
   numberCantBeBlank: "",
-  monthCantBeBlank: "",
-  yearCantBeBlank: "",
+  dateCantBeBlank: "",
   cvcCantBeBlank: "",
   cantBeNumber: "",
-  cantBeChar: "",
+  cvcIsShort: "",
+  numberTooShort: "",
 };
 
 function App() {
@@ -20,7 +20,6 @@ function App() {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [cvc, setCvc] = useState("");
-
   const [error, setError] = useState(initialErrors);
 
   const updateName = (e: React.FormEvent<HTMLInputElement>) => {
@@ -29,19 +28,14 @@ function App() {
   };
 
   const updateCardNumber = (e: React.FormEvent<HTMLInputElement>) => {
-    let { value } = e.currentTarget;
-    const formattedValue = formattedNumber(value);
-    value = value.replace(/(.{4})/g, "$1 ");
-    setCardNumber(formattedValue);
-  };
-
-  const formattedNumber = (value: string) => {
-    //remove any non numeric values
+    const { value } = e.currentTarget;
+    // Remove any non-numeric characters
     const formattedValue = value.replace(/\D/g, "");
 
-    //add a space after every 4 characters
-    const result = formattedValue.replace(/(.{4})/g, "$1 ");
-    return result;
+    // Add a space after every 4 characters
+    const newValue = formattedValue.replace(/(.{4})/g, "$1 ").trim();
+
+    setCardNumber(newValue);
   };
 
   const updateMonth = (e: React.FormEvent<HTMLInputElement>) => {
@@ -49,7 +43,7 @@ function App() {
     // Allow only numeric characters
     value = value.replace(/\D/g, "");
     if (parseInt(value) > 12) {
-      value = 12;
+      value = "12";
     }
     setMonth(value); // Update state with the current value
   };
@@ -65,7 +59,7 @@ function App() {
     let { value } = e.currentTarget;
     value = value.replace(/\D/g, "");
     if (parseInt(value) > 999) {
-      value = 999;
+      value = "999";
     }
     setCvc(value);
   };
@@ -102,6 +96,25 @@ function App() {
     }
   };
 
+  const isTooShortCvc = (cvc: string) => {
+    if (cvc.length < 3) {
+      setError((prev) => ({
+        ...prev,
+        cvcIsShort: "CVC is too short",
+        cvcCantBeBlank: "",
+      }));
+    }
+  };
+
+  const numberIsShort = (number: string) => {
+    if (number.length < 19) {
+      setError((prev) => ({
+        ...prev,
+        numberTooShort: "Number is too short",
+      }));
+    }
+  };
+
   const handleClick = () => {
     setError(initialErrors); //reset errors to each click
 
@@ -120,28 +133,26 @@ function App() {
         numberCantBeBlank: "Can't be blank",
       }));
       isValid = false;
+    } else {
+      numberIsShort(cardNumber);
     }
 
-    if (!isNotEmpty(month)) {
+    if (!isNotEmpty(month) || !isNotEmpty(year)) {
       setError((prevErrs) => ({
         ...prevErrs,
-        monthCantBeBlank: "Can't be blank",
+        dateCantBeBlank: "Can't be blank",
       }));
       isValid = false;
     }
-    if (!isNotEmpty(year)) {
-      setError((prevErrs) => ({
-        ...prevErrs,
-        yearCantBeBlank: "Can't be blank",
-      }));
-      isValid = false;
-    }
+
     if (!isNotEmpty(cvc)) {
       setError((prevErrs) => ({
         ...prevErrs,
         cvcCantBeBlank: "Can't be blank",
       }));
       isValid = false;
+    } else {
+      isTooShortCvc(cvc);
     }
 
     isNotNumber(holderName);
@@ -192,8 +203,10 @@ function App() {
               id="cardNumber"
               type="text"
             />
-            {error.numberCantBeBlank && <span>{error.numberCantBeBlank}</span>}
-            {error.cantBeChar && <span>{error.cantBeChar}</span>}
+            {(error.numberCantBeBlank && (
+              <span>{error.numberCantBeBlank}</span>
+            )) ||
+              (error.numberTooShort && <span>{error.numberTooShort}</span>)}
           </div>
           <div className="expiration-dates">
             <div>
@@ -205,28 +218,27 @@ function App() {
                 type="text"
                 maxLength={2}
               />
-              {error.monthCantBeBlank && <span>{error.monthCantBeBlank}</span>}
+              {error.dateCantBeBlank && <span>{error.dateCantBeBlank}</span>}
               <input
+                value={year}
                 onChange={updateYear}
                 id="yy"
                 type="text"
-                value={year}
                 maxLength={2}
               />
-              {error.yearCantBeBlank && <span>{error.yearCantBeBlank}</span>}
             </div>
             <div>
               <label htmlFor="cvc">cvc</label>
               <input
+                value={cvc}
                 onChange={updateCvc}
                 id="cvc"
                 type="text"
                 maxLength={3}
-                minLength={3}
-                value={cvc}
               />
             </div>
-            {error.cvcCantBeBlank && <span>{error.cvcCantBeBlank}</span>}
+            {(error.cvcCantBeBlank && <span>{error.cvcCantBeBlank}</span>) ||
+              (error.cvcIsShort && <span>{error.cvcIsShort}</span>)}
           </div>
         </form>
         <button onClick={handleClick} className="confirm">
