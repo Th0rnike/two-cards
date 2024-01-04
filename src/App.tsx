@@ -171,6 +171,16 @@ function App() {
     return isValid;
   };
 
+  const handleReset = () => {
+    setIsValid(false);
+    setHolderName("");
+    setCardNumber("");
+    setMonth("");
+    setYear("");
+    setCvc("");
+    setError(initialErrors);
+  };
+
   return (
     <>
       <div className="cards-container">
@@ -200,7 +210,7 @@ function App() {
           <img src={iconComplete} alt="" />
           <h1>THANK YOU!</h1>
           <p>We’ve added your card details</p>
-          <button>Continue</button>
+          <button onClick={handleReset}>Continue</button>
         </div>
       ) : (
         <div className="input-div">

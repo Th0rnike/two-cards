@@ -159,3 +159,46 @@
 .confirm:active{
     background-color: green;
 }
+
+
+
+/* thank you page */
+
+
+.thank-you{
+    width: 87.2%;
+    margin: 0 2.4rem;
+    margin-top: 4.8rem;
+    text-align: center;
+}
+
+.thank-you img{
+    margin-bottom: 3.5rem;
+}
+
+.thank-you h1{
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 3.422px;
+    color: var(--Deep-Violet);
+    margin-bottom: 1.6rem;
+}
+
+.thank-you p{
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #8F8694;
+}
+
+.thank-you button{
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--Deep-Violet);
+    color: #FFF;
+    padding: 1.5rem 0;
+    margin-top: 4.8rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
