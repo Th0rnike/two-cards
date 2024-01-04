@@ -156,10 +156,15 @@
     font-weight: 500;
     margin: 2.8rem 0 3rem 0;
     text-transform: capitalize;
+
 }
 
 .confirm:active{
-    background-color: green;
+    background-color: lightblue;
+}
+
+.errorColor:active{
+    background-color: red;
 }
 
 /* thank you page */
@@ -200,5 +205,89 @@
     font-size: 12px;
     font-weight: 500;
     display: inline-block;
-    margin-top: 0.8rem;
+    margin-top: 1rem;
+    overflow: hidden;
+    animation-name: slide-in;
+    animation-duration: 1s;
+}
+
+@keyframes slide-in{
+    from{
+        margin-top: 0;
+    }
+    to{
+        margin-top: 1rem;
+    }
+}
+
+
+@media screen and (min-width: 550px) {
+    .cards-container{
+        padding-left: 9rem;
+    }
+    .front-card{
+        max-width: 33rem;
+    }
+    .back-card{
+        max-width: 33rem;
+        margin-left: 6rem;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .app{
+        display: flex;
+    }
+    .cards-container{
+        height: 100vh;
+        background-size: 65% 100%;
+    }
+    .front-card, .back-card{
+        max-width: 44rem;
+    }
+
+    #logo{
+        width: 8.4rem;
+        margin-bottom: 6.4rem;
+    }
+    .card-details span{
+        font-size: 2.8rem;
+        font-weight: 500;
+        line-height: 3.6rem;
+        letter-spacing: 3.4px;
+        text-align: left;
+    }
+    .info span:first-of-type{
+        color: var(--White, #FFF);
+        text-transform: uppercase;
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+        letter-spacing: 2px;
+        text-align: left;
+    }
+    .info span:last-of-type{
+        color: var(--White, #FFF);
+        font-size: 14px;
+        line-height: 1.8rem;
+        text-align: right;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+
+    }
+    .back-card{
+        top: 35rem;
+    }
+    .back-card{
+        width: 44rem;
+    }
+    .back-card span{
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 2px;
+        padding-right: 5rem;
+    }
+    .input-div{
+        margin: auto;
+        max-width: 38.1rem;
+    }
 }

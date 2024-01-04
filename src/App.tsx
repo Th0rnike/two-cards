@@ -182,7 +182,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className="app">
       <div className="cards-container">
         <div className="back-card">
           <img src={backCard} alt="back of the card" />
@@ -297,7 +297,7 @@ function App() {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
