@@ -189,7 +189,12 @@ function App() {
         <form>
           <div>
             <label htmlFor="holder">Cardholder Name</label>
-            <input onChange={updateName} id="holder" type="text" />
+            <input
+              onChange={updateName}
+              id="holder"
+              type="text"
+              placeholder="e.g. Jane Appleseed"
+            />
             {error.nameCantBeBlank && <span>{error.nameCantBeBlank}</span>}
             {error.cantBeNumber && <span>{error.cantBeNumber}</span>}
           </div>
@@ -197,7 +202,7 @@ function App() {
             <label htmlFor="cardNumber">Card Number</label>
             <input
               value={cardNumber}
-              placeholder="XXXX XXXX XXXX XXXX"
+              placeholder="e.g. 1234 5678 9123 0000"
               onChange={updateCardNumber}
               maxLength={19}
               id="cardNumber"
@@ -217,6 +222,7 @@ function App() {
                 id="mm"
                 type="text"
                 maxLength={2}
+                placeholder="MM"
               />
               {error.dateCantBeBlank && <span>{error.dateCantBeBlank}</span>}
               <input
@@ -225,6 +231,7 @@ function App() {
                 id="yy"
                 type="text"
                 maxLength={2}
+                placeholder="YY"
               />
             </div>
             <div>
@@ -235,6 +242,7 @@ function App() {
                 id="cvc"
                 type="text"
                 maxLength={3}
+                placeholder="e.g. 123"
               />
             </div>
             {(error.cvcCantBeBlank && <span>{error.cvcCantBeBlank}</span>) ||
