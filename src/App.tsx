@@ -210,7 +210,9 @@ function App() {
           <img src={iconComplete} alt="" />
           <h1>THANK YOU!</h1>
           <p>We’ve added your card details</p>
-          <button onClick={handleReset}>Continue</button>
+          <button className="confirm thanks" onClick={handleReset}>
+            Continue
+          </button>
         </div>
       ) : (
         <div className="input-div">
@@ -223,8 +225,12 @@ function App() {
                 type="text"
                 placeholder="e.g. Jane Appleseed"
               />
-              {error.nameCantBeBlank && <span>{error.nameCantBeBlank}</span>}
-              {error.cantBeNumber && <span>{error.cantBeNumber}</span>}
+              {error.nameCantBeBlank && (
+                <span className="error">{error.nameCantBeBlank}</span>
+              )}
+              {error.cantBeNumber && (
+                <span className="error">{error.cantBeNumber}</span>
+              )}
             </div>
             <div>
               <label htmlFor="cardNumber">Card Number</label>
@@ -237,9 +243,11 @@ function App() {
                 type="text"
               />
               {(error.numberCantBeBlank && (
-                <span>{error.numberCantBeBlank}</span>
+                <span className="error">{error.numberCantBeBlank}</span>
               )) ||
-                (error.numberTooShort && <span>{error.numberTooShort}</span>)}
+                (error.numberTooShort && (
+                  <span className="error">{error.numberTooShort}</span>
+                ))}
             </div>
             <div className="expiration-dates">
               <div>
@@ -252,7 +260,7 @@ function App() {
                   maxLength={2}
                   placeholder="MM"
                 />
-                {error.dateCantBeBlank && <span>{error.dateCantBeBlank}</span>}
+
                 <input
                   value={year}
                   onChange={updateYear}
@@ -261,6 +269,9 @@ function App() {
                   maxLength={2}
                   placeholder="YY"
                 />
+                {error.dateCantBeBlank && (
+                  <span className="error">{error.dateCantBeBlank}</span>
+                )}
               </div>
               <div>
                 <label htmlFor="cvc">cvc</label>
@@ -272,9 +283,13 @@ function App() {
                   maxLength={3}
                   placeholder="e.g. 123"
                 />
+                {(error.cvcCantBeBlank && (
+                  <span className="error">{error.cvcCantBeBlank}</span>
+                )) ||
+                  (error.cvcIsShort && (
+                    <span className="error">{error.cvcIsShort}</span>
+                  ))}
               </div>
-              {(error.cvcCantBeBlank && <span>{error.cvcCantBeBlank}</span>) ||
-                (error.cvcIsShort && <span>{error.cvcIsShort}</span>)}
             </div>
           </form>
           <button onClick={handleClick} className="confirm">

@@ -3,7 +3,9 @@
     --White: #FFF;
     --Deep-Violet: #21092F;
     --Light-Grey: #DFDEE0;
-    --Dark-Grey: hsl(279, 6%, 55%)
+    --Dark-Grey: hsl(279, 6%, 55%);
+    --Red: #FF5050;
+    --colori: #6348FE;
 }
 
 *{

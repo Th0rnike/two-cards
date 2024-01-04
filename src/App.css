@@ -99,13 +99,14 @@
 .input-div label{
     display: block;
     font-family: Space Grotesk;
-    font-size: 12px;
+    font-size: 11px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--Deep-Violet);
+    margin-top: 2rem;
 }
 
 .input-div input{
@@ -117,14 +118,16 @@
     font-size: 18px;
     font-weight: 500;
     margin-top: 9px;
-    margin-bottom: 20px;
 }
+
+.input-div input:hover{
+    border: 1px solid var(--colori);
+}
+
 
 .input-div input::placeholder{
     opacity: 0.25;
 }
-
-
 
 .expiration-dates{
     display: flex;
@@ -149,10 +152,9 @@
     background-color: var(--Deep-Violet);
     color: #FFF;
     padding: 1.5rem 0;
-    margin-top: 0.8rem;
     font-size: 1.8rem;
     font-weight: 500;
-    margin-bottom: 3rem;
+    margin: 2.8rem 0 3rem 0;
     text-transform: capitalize;
 }
 
@@ -160,10 +162,7 @@
     background-color: green;
 }
 
-
-
 /* thank you page */
-
 
 .thank-you{
     width: 87.2%;
@@ -190,15 +189,16 @@
     color: #8F8694;
 }
 
-.thank-you button{
-    width: 100%;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--Deep-Violet);
-    color: #FFF;
-    padding: 1.5rem 0;
+.thanks{
     margin-top: 4.8rem;
-    font-size: 1.8rem;
+}
+
+/* ERRORS */
+
+.error{
+    color: var(--Red);
+    font-size: 12px;
     font-weight: 500;
-    text-transform: capitalize;
+    display: inline-block;
+    margin-top: 0.8rem;
 }
