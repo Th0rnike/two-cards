@@ -3,6 +3,7 @@ import "./App.css";
 import backCard from "./assets/bg-card-back.png";
 import frontCard from "./assets/bg-card-front.png";
 import cardLogo from "./assets/card-logo.svg";
+import iconComplete from "./assets/icon-complete.svg";
 
 const initialErrors = {
   nameCantBeBlank: "",
@@ -21,6 +22,7 @@ function App() {
   const [year, setYear] = useState("");
   const [cvc, setCvc] = useState("");
   const [error, setError] = useState(initialErrors);
+  const [isValid, setIsValid] = useState(false);
 
   const updateName = (e: React.FormEvent<HTMLInputElement>) => {
     const val = e.currentTarget.value;
@@ -103,6 +105,7 @@ function App() {
         cvcIsShort: "CVC is too short",
         cvcCantBeBlank: "",
       }));
+      setIsValid(false);
     }
   };
 
@@ -112,27 +115,31 @@ function App() {
         ...prev,
         numberTooShort: "Number is too short",
       }));
+      setIsValid(false);
     }
   };
 
   const handleClick = () => {
     setError(initialErrors); //reset errors to each click
 
-    let isValid = true;
+    // let isValid = true;
+    setIsValid(true);
 
     if (!isNotEmpty(holderName)) {
       setError((prevErrors) => ({
         ...prevErrors,
         nameCantBeBlank: "holder Can't be blank",
       }));
-      isValid = false;
+      // isValid = false;
+      setIsValid(false);
     }
     if (!isNotEmpty(cardNumber)) {
       setError((prevErrs) => ({
         ...prevErrs,
         numberCantBeBlank: "Can't be blank",
       }));
-      isValid = false;
+      // isValid = false;
+      setIsValid(false);
     } else {
       numberIsShort(cardNumber);
     }
@@ -142,7 +149,8 @@ function App() {
         ...prevErrs,
         dateCantBeBlank: "Can't be blank",
       }));
-      isValid = false;
+      // isValid = false;
+      setIsValid(false);
     }
 
     if (!isNotEmpty(cvc)) {
@@ -150,7 +158,8 @@ function App() {
         ...prevErrs,
         cvcCantBeBlank: "Can't be blank",
       }));
-      isValid = false;
+      // isValid = false;
+      setIsValid(false);
     } else {
       isTooShortCvc(cvc);
     }
@@ -185,74 +194,84 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="input-div">
-        <form>
-          <div>
-            <label htmlFor="holder">Cardholder Name</label>
-            <input
-              onChange={updateName}
-              id="holder"
-              type="text"
-              placeholder="e.g. Jane Appleseed"
-            />
-            {error.nameCantBeBlank && <span>{error.nameCantBeBlank}</span>}
-            {error.cantBeNumber && <span>{error.cantBeNumber}</span>}
-          </div>
-          <div>
-            <label htmlFor="cardNumber">Card Number</label>
-            <input
-              value={cardNumber}
-              placeholder="e.g. 1234 5678 9123 0000"
-              onChange={updateCardNumber}
-              maxLength={19}
-              id="cardNumber"
-              type="text"
-            />
-            {(error.numberCantBeBlank && (
-              <span>{error.numberCantBeBlank}</span>
-            )) ||
-              (error.numberTooShort && <span>{error.numberTooShort}</span>)}
-          </div>
-          <div className="expiration-dates">
+
+      {isValid ? (
+        <div className="thank-you">
+          <img src={iconComplete} alt="" />
+          <h1>THANK YOU!</h1>
+          <p>We’ve added your card details</p>
+          <button>Continue</button>
+        </div>
+      ) : (
+        <div className="input-div">
+          <form>
             <div>
-              <label htmlFor="mm">exp. date (mm/yy)</label>
+              <label htmlFor="holder">Cardholder Name</label>
               <input
-                value={month}
-                onChange={updateMonth}
-                id="mm"
+                onChange={updateName}
+                id="holder"
                 type="text"
-                maxLength={2}
-                placeholder="MM"
+                placeholder="e.g. Jane Appleseed"
               />
-              {error.dateCantBeBlank && <span>{error.dateCantBeBlank}</span>}
-              <input
-                value={year}
-                onChange={updateYear}
-                id="yy"
-                type="text"
-                maxLength={2}
-                placeholder="YY"
-              />
+              {error.nameCantBeBlank && <span>{error.nameCantBeBlank}</span>}
+              {error.cantBeNumber && <span>{error.cantBeNumber}</span>}
             </div>
             <div>
-              <label htmlFor="cvc">cvc</label>
+              <label htmlFor="cardNumber">Card Number</label>
               <input
-                value={cvc}
-                onChange={updateCvc}
-                id="cvc"
+                value={cardNumber}
+                placeholder="e.g. 1234 5678 9123 0000"
+                onChange={updateCardNumber}
+                maxLength={19}
+                id="cardNumber"
                 type="text"
-                maxLength={3}
-                placeholder="e.g. 123"
               />
+              {(error.numberCantBeBlank && (
+                <span>{error.numberCantBeBlank}</span>
+              )) ||
+                (error.numberTooShort && <span>{error.numberTooShort}</span>)}
             </div>
-            {(error.cvcCantBeBlank && <span>{error.cvcCantBeBlank}</span>) ||
-              (error.cvcIsShort && <span>{error.cvcIsShort}</span>)}
-          </div>
-        </form>
-        <button onClick={handleClick} className="confirm">
-          confirm
-        </button>
-      </div>
+            <div className="expiration-dates">
+              <div>
+                <label htmlFor="mm">exp. date (mm/yy)</label>
+                <input
+                  value={month}
+                  onChange={updateMonth}
+                  id="mm"
+                  type="text"
+                  maxLength={2}
+                  placeholder="MM"
+                />
+                {error.dateCantBeBlank && <span>{error.dateCantBeBlank}</span>}
+                <input
+                  value={year}
+                  onChange={updateYear}
+                  id="yy"
+                  type="text"
+                  maxLength={2}
+                  placeholder="YY"
+                />
+              </div>
+              <div>
+                <label htmlFor="cvc">cvc</label>
+                <input
+                  value={cvc}
+                  onChange={updateCvc}
+                  id="cvc"
+                  type="text"
+                  maxLength={3}
+                  placeholder="e.g. 123"
+                />
+              </div>
+              {(error.cvcCantBeBlank && <span>{error.cvcCantBeBlank}</span>) ||
+                (error.cvcIsShort && <span>{error.cvcIsShort}</span>)}
+            </div>
+          </form>
+          <button onClick={handleClick} className="confirm">
+            confirm
+          </button>
+        </div>
+      )}
     </>
   );
 }

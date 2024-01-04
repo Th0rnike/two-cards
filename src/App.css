@@ -110,15 +110,18 @@
 
 .input-div input{
     width: 100%;
-    border-radius: 8px;
+    border-radius: 8px; 
     border: 1px solid var(--Dark-Grey);
     background: var(--White, #FFF);
     padding: 11px 16px;
     font-size: 18px;
     font-weight: 500;
-    opacity: 0.25;
     margin-top: 9px;
     margin-bottom: 20px;
+}
+
+.input-div input::placeholder{
+    opacity: 0.25;
 }
 
 
@@ -127,8 +130,8 @@
     display: flex;
 }
 
-.expiration-dates:first-child{
-    width: 50%;
+.expiration-dates div:first-child{
+    width: 78%;
 }
 
 #mm, #yy {
@@ -146,7 +149,11 @@
     background-color: var(--Deep-Violet);
     color: #FFF;
     padding: 1.5rem 0;
-    margin-top: 2.8rem;
+    margin-top: 0.8rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    text-transform: capitalize;
 }
 
 .confirm:active{
