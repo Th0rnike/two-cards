@@ -28,14 +28,16 @@ function App() {
     setHolderName(val);
   };
 
-  const updateCardNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
+  const formatCardNumber = (value: string): string => {
     // Remove any non-numeric characters
     const formattedValue = value.replace(/\D/g, "");
-
     // Add a space after every 4 characters
-    const newValue = formattedValue.replace(/(.{4})/g, "$1 ").trim();
+    return formattedValue.replace(/(.{4})/g, "$1 ").trim();
+  };
 
+  const updateCardNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    const newValue = formatCardNumber(value);
     setCardNumber(newValue);
   };
 
@@ -121,7 +123,6 @@ function App() {
   const handleClick = () => {
     setError(initialErrors); //reset errors to each click
 
-    // let isValid = true;
     setIsValid(true);
 
     if (!isNotEmpty(holderName)) {
@@ -129,7 +130,6 @@ function App() {
         ...prevErrors,
         nameCantBeBlank: "holder Can't be blank",
       }));
-      // isValid = false;
       setIsValid(false);
     }
     if (!isNotEmpty(cardNumber)) {
@@ -137,7 +137,6 @@ function App() {
         ...prevErrs,
         numberCantBeBlank: "Can't be blank",
       }));
-      // isValid = false;
       setIsValid(false);
     } else {
       numberIsShort(cardNumber);
@@ -148,7 +147,6 @@ function App() {
         ...prevErrs,
         dateCantBeBlank: "Can't be blank",
       }));
-      // isValid = false;
       setIsValid(false);
     }
 
@@ -157,7 +155,6 @@ function App() {
         ...prevErrs,
         cvcCantBeBlank: "Can't be blank",
       }));
-      // isValid = false;
       setIsValid(false);
     } else {
       isTooShortCvc(cvc);
