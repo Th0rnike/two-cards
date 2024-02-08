@@ -1,4 +1,5 @@
 # Two Cards
+Welcome to the Two Cards app! Seamlessly manage your card details with real-time updates and intuitive design. Effortlessly adapt to various devices for a smooth financial management experience.
 
 ## Description
 This project is a frontend challenge from Frontend Mentor that focuses on creating a user interface where users can input credit card information and see it dynamically reflected on two card elements. The layout consists of two card representations side by side, resembling credit cards. Users are prompted to input essential credit card details such as the card number, cardholder's name, expiration date, and CVV (security code). As users type in their information, the corresponding details on the card elements update in real-time.
