@@ -15,10 +15,11 @@ Responsive design: The layout is designed to be responsive, ensuring a seamless 
 Intuitive user interface: The form elements and card representations are designed to be user-friendly and intuitive, providing a smooth interaction for users.
 
 ## Technologies Used
-HTML5
-CSS3
-JavaScript
-TypeScript
+- HTML
+- CSS
+- Flexbos
+- JavaScript
+- TypeScript
 
 ## Installation
 
